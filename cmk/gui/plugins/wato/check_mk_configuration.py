@@ -5855,6 +5855,12 @@ def _valuespec_snmpv3_contexts():
                 title=_("SNMP Context IDs"),
                 allow_empty=False,
             ),
+            Checkbox(
+                title=_("Send context during discovery"),
+                default_value=True,
+                true_label=_("context is also sent for discovery"),
+                false_label=_("context is not used for discovery"),
+            ),
         ],
     )
 

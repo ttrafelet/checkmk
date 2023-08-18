@@ -84,12 +84,12 @@ class SNMPHostConfig(NamedTuple):
         self,
         section_name: SectionName | None,
     ) -> Sequence[SNMPContext]:
-        if not section_name or not self.is_snmpv3_host:
+        if not self.is_snmpv3_host:
             return [None]
         section_name_str = str(section_name)
-        for ty, rules in self.snmpv3_contexts:
-            if ty is None or ty == section_name_str:
-                return rules
+        for ty, contexts, discovery_context in self.snmpv3_contexts:
+            if ty is None or ty == section_name_str or (section_name is None and discovery_context):
+                return contexts
         return [None]
 
     def ensure_str(self, value: str | bytes) -> str:
